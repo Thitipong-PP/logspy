@@ -4,20 +4,20 @@ import (
 	"strings"
 )
 
-type Statement struct{
-	Command string
-	Args 	[]string
-	Flags 	map[string][]string
+type Statement struct {
+	Command   string
+	Args      []string
+	Flags     map[string][]string
 	BoolFlags map[string]bool
 }
 
 // Create new statement
-func NewStatement(command string) (*Statement) {
+func NewStatement(command string) *Statement {
 	return &Statement{
-		Command: 	command,
-		Args: 		make([]string, 0),
-		Flags: 		make(map[string][]string),
-		BoolFlags: 	make(map[string]bool),
+		Command:   command,
+		Args:      make([]string, 0),
+		Flags:     make(map[string][]string),
+		BoolFlags: make(map[string]bool),
 	}
 }
 

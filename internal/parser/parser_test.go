@@ -8,13 +8,13 @@ import (
 func TestParse(t *testing.T) {
 	tests := []struct {
 		name        string
-		cli		    []string
+		cli         []string
 		want        *Statement
 		expectError bool
 	}{
 		{
 			name: "Basic command without flags",
-			cli: []string{"logspy", "help"},
+			cli:  []string{"logspy", "help"},
 			want: &Statement{
 				Command:   "help",
 				Args:      []string{},
@@ -24,20 +24,20 @@ func TestParse(t *testing.T) {
 			expectError: false,
 		},
 		{
-			name: "Missing command",
-			cli: []string{"logspy"},
-			want: nil,
+			name:        "Missing command",
+			cli:         []string{"logspy"},
+			want:        nil,
 			expectError: true,
 		},
 		{
 			name: "Command with flags",
-			cli: []string{"logspy", "find", "-file", "app.log", "-env", "development"},
+			cli:  []string{"logspy", "find", "-file", "app.log", "-env", "development"},
 			want: &Statement{
 				Command: "find",
 				Args:    []string{},
 				Flags: map[string][]string{
 					"file": {"app.log"},
-					"env": {"development"},
+					"env":  {"development"},
 				},
 				BoolFlags: map[string]bool{},
 			},
@@ -45,35 +45,35 @@ func TestParse(t *testing.T) {
 		},
 		{
 			name: "Command with boolean flags",
-			cli: []string{"logspy", "find", "--test", "--dev"},
+			cli:  []string{"logspy", "find", "--test", "--dev"},
 			want: &Statement{
 				Command: "find",
 				Args:    []string{},
-				Flags: map[string][]string{},
+				Flags:   map[string][]string{},
 				BoolFlags: map[string]bool{
 					"test": true,
-					"dev": true,
+					"dev":  true,
 				},
 			},
 			expectError: false,
 		},
 		{
 			name: "Command with arguments",
-			cli: []string{"logspy", "find", "query", "auto-fill"},
+			cli:  []string{"logspy", "find", "query", "auto-fill"},
 			want: &Statement{
 				Command: "find",
-				Args:    []string{
+				Args: []string{
 					"query",
 					"auto-fill",
 				},
-				Flags: map[string][]string{},
+				Flags:     map[string][]string{},
 				BoolFlags: map[string]bool{},
 			},
 			expectError: false,
 		},
 		{
 			name: "Command with flags and arguments",
-			cli: []string{"logspy", "find", "-file", "app.log", "--ignore-case", "query"},
+			cli:  []string{"logspy", "find", "-file", "app.log", "--ignore-case", "query"},
 			want: &Statement{
 				Command: "find",
 				Args:    []string{"query"},
@@ -87,14 +87,14 @@ func TestParse(t *testing.T) {
 			expectError: false,
 		},
 		{
-			name: "Missing flag value",
-			cli: []string{"logspy", "find", "-file", "--ignore-case", "query"},
-			want: nil,
+			name:        "Missing flag value",
+			cli:         []string{"logspy", "find", "-file", "--ignore-case", "query"},
+			want:        nil,
 			expectError: true,
 		},
 		{
 			name: "Command with array flags",
-			cli: []string{"logspy", "find", "-find", "Panic,Error", "--ignore-case", "query"},
+			cli:  []string{"logspy", "find", "-find", "Panic,Error", "--ignore-case", "query"},
 			want: &Statement{
 				Command: "find",
 				Args:    []string{"query"},
@@ -109,7 +109,7 @@ func TestParse(t *testing.T) {
 		},
 		{
 			name: "Command with array flags with space",
-			cli: []string{"logspy", "find", "-find", "Panic, Error", "--ignore-case", "query"},
+			cli:  []string{"logspy", "find", "-find", "Panic, Error", "--ignore-case", "query"},
 			want: &Statement{
 				Command: "find",
 				Args:    []string{"query"},

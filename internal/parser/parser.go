@@ -20,7 +20,7 @@ func Parse(cli []string) (*Statement, error) {
 	}
 
 	cli = cli[2:]
-	for i:=0; i<len(cli); i++ {
+	for i := 0; i < len(cli); i++ {
 		switch {
 		case strings.HasPrefix(cli[i], "--"):
 			statement.SetBoolFlag(cli[i])
@@ -35,6 +35,6 @@ func Parse(cli []string) (*Statement, error) {
 			statement.Args = append(statement.Args, cli[i])
 		}
 	}
-	
+
 	return statement, nil
 }
