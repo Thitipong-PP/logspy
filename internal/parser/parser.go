@@ -12,15 +12,14 @@ func Parse(cli []string) (*Statement, error) {
 		return nil, fmt.Errorf("not enough arguments: missing command")
 	}
 
-	cli = cli[1:]
-	statement := NewStatement(cli[0])
+	statement := NewStatement(cli[1])
 
 	// Don't have any arguments
-	if len(cli) == 1 {
+	if len(cli) == 2 {
 		return statement, nil
 	}
 
-	cli = cli[1:]
+	cli = cli[2:]
 	for i:=0; i<len(cli); i++ {
 		switch {
 		case strings.HasPrefix(cli[i], "--"):
